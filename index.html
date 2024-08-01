@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="farmer-hat.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-it</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Adicionar Nova Tarefa</h1>
+
+    <!-- Formulário para adicionar uma nova tarefa -->
+    <form id="taskForm">
+        <input type="text" id="title" placeholder="titulo" required><br>
+        <textarea id="task_description" placeholder="descrição" required></textarea><br>
+        <input type="date" id="due_date" required><br>
+        <button type="submit">Salvar</button>
+    </form>
+
+    <!-- Script JavaScript para o envio do formulário -->
+    <script>
+        document.getElementById('taskForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // impede o envio padrão do formulário
+            const title = document.getElementById('title').value;
+            const task_description = document.getElementById('task_description').value;
+            const due_date = document.getElementById('due_date').value;
+
+            const task = { title, task_description, due_date }; // cria um objeto com os dados da tarefa
+
+            // faz uma requisição POST para o servidor para salvar a tarefa
+            fetch('http://localhost:3020/save_task', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(task) // converte o objeto em uma string JSON
+            })
+            .then(response => response.json()) // converte a resposta em JSON
+            .then(data => {
+                console.log('Success:', data);
+                alert(data.message);
+
+                // limpa os campos
+                document.getElementById('title').value = '';
+                document.getElementById('task_description').value = '';
+                document.getElementById('due_date').value = '';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Erro ao salvar a tarefa');
+            });
+        });
+    </script>
+</body>
+</html>

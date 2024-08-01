@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --text-color: rgb(237, 233, 233);
+    --bg-url: url(bg-desktop.jpg);
+  }
+
+  body {
+    font-family: "Inter", sans-serif;
+    color: var(--text-color);
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin: 0;
+    padding: 200px;
+    border-radius: 100px;
+    background: var(--bg-url) no-repeat top center/cover;
+  }
+
+  body h1 {
+    justify-content: center;
+    align-items: top center;
+    padding: 10px;
+  }
+
+  form {
+    border: 1px solid #fcfbfb;
+    padding: 50px;
+    border-radius: 10px;
+  }
